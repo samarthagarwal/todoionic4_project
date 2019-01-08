@@ -9,6 +9,21 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import * as firebase from 'firebase';
+
+firebase.initializeApp({
+  apiKey: "AIzaSyBe_wlaFYM-4LFniDEFnLAHPlStpRqghxM",
+  authDomain: "todoapp-3ccee.firebaseapp.com",
+  databaseURL: "https://todoapp-3ccee.firebaseio.com",
+  projectId: "todoapp-3ccee",
+  storageBucket: "todoapp-3ccee.appspot.com",
+  messagingSenderId: "939738679270"
+});
+
+firebase.firestore().settings({
+  timestampsInSnapshots: true
+});
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
