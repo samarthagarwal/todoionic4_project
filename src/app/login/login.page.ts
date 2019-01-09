@@ -3,11 +3,11 @@ import * as firebase from 'firebase';
 import { ToastController, NavController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.page.html',
-  styleUrls: ['./signup.page.scss'],
+  selector: 'app-login',
+  templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss'],
 })
-export class SignupPage implements OnInit {
+export class LoginPage implements OnInit {
 
   email: string;
   password: string;
@@ -17,24 +17,27 @@ export class SignupPage implements OnInit {
   ngOnInit() {
   }
 
-  signup() {
-    firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then((userData) => {
+  login() {
+    firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((userObject) => {
 
-      console.log(userData);
-      // Navigate the user to the app page
+      console.log(userObject);
+      // Navigate the user to the application page
+
 
     }).catch((err) => {
+
       this.toastCtrl.create({
         message: err.message,
         duration: 3000
       }).then((toast) => {
         toast.present();
       })
-    })
+
+    });
   }
 
-  gotoLogin() {
-    this.navCtrl.goBack();
+  gotoSignup() {
+    this.navCtrl.navigateForward(['/signup']);
   }
 
 }
