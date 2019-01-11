@@ -22,6 +22,7 @@ export class SignupPage implements OnInit {
 
       console.log(userData);
       // Navigate the user to the app page
+      this.navCtrl.navigateForward(['/todos']);
 
     }).catch((err) => {
       this.toastCtrl.create({

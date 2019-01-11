@@ -12,7 +12,17 @@ export class LoginPage implements OnInit {
   email: string;
   password: string;
 
-  constructor(private toastCtrl: ToastController, private navCtrl: NavController) { }
+  constructor(private toastCtrl: ToastController, private navCtrl: NavController) {
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if(user) {
+        this.navCtrl.navigateForward(['/todos']);
+      } else {
+        // No user is logged in
+      }
+    })
+
+  }
 
   ngOnInit() {
   }
@@ -23,6 +33,7 @@ export class LoginPage implements OnInit {
       console.log(userObject);
       // Navigate the user to the application page
 
+      this.navCtrl.navigateForward(['/todos']);
 
     }).catch((err) => {
 
