@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-todos',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TodosPage implements OnInit {
 
-  constructor() { }
+  constructor(private navCtrl: NavController) { }
 
   ngOnInit() {
+  }
+
+  gotoAddTodo() {
+    this.navCtrl.navigateForward(['/add-todo']);
   }
 
 }
