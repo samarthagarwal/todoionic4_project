@@ -28,6 +28,7 @@ export class AddTodoPage implements OnInit {
       description: this.todo_description,
       last_date: new Date(this.todo_last_date),
       owner: this.todo_owner,
+      status: "incomplete",
       created: firebase.firestore.FieldValue.serverTimestamp()
     }).then((docRef) => {
       this.toastCtrl.create({

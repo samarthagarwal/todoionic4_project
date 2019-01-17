@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import * as firebase from 'firebase';
 
 @Component({
@@ -12,7 +12,7 @@ export class TodosPage implements OnInit {
   userId: string;
   todos: any[] = [];
 
-  constructor(private navCtrl: NavController) { 
+  constructor(private navCtrl: NavController, private toastCtrl: ToastController) { 
     this.userId = firebase.auth().currentUser.uid;
     this.getTodos();
   }
@@ -24,6 +24,7 @@ export class TodosPage implements OnInit {
 
     firebase.firestore().collection("todos")
     .where("owner", "==", this.userId)
+    .where("status", "==", "incomplete")
     .onSnapshot((querySnapshot) => {
       this.todos = querySnapshot.docs;
     });
@@ -37,6 +38,23 @@ export class TodosPage implements OnInit {
 
   gotoAddTodo() {
     this.navCtrl.navigateForward(['/add-todo']);
+  }
+
+  markCompleted(document: firebase.firestore.QueryDocumentSnapshot) {
+
+    firebase.firestore().collection("todos").doc(document.id).set({
+      "status": "completed"
+    }, {
+      merge: true
+    }).then(() => {
+      this.toastCtrl.create({
+        message: "Todo item marked as completed!",
+        duration: 2000
+      }).then((toast) => {
+        toast.present();
+      })
+    })
+
   }
 
 }
