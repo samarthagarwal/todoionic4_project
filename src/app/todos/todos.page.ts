@@ -57,4 +57,12 @@ export class TodosPage implements OnInit {
 
   }
 
+  logout() {
+    firebase.auth().signOut().then(() => {
+      this.navCtrl.navigateRoot("/login");
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
 }
